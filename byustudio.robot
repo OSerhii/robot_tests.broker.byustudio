@@ -110,7 +110,7 @@ Login
   Click Element  xpath=//a[contains(text(),'Редагувати')]
   Choose File  xpath=(//*[@name="FileUpload[file]"])[last()]  ${filepath}
   Select From List By Value   xpath=(//*[@class="document-type"])[last()]   illustration
-  #Input Text  xpath=//label[text()='${filepath.split('/')[-1]}']/../../descendant::input[contains(@name,'[title]')]   ${filepath.split('/')[-1]}
+  Input Text  xpath=//label[text()='${filepath.split('/')[-1].split(".")[0]}']/../../descendant::input[contains(@name,'[title]')]   ${filepath.split('/')[-1]}
   Click Button  id=btn-submit-form
   Wait Until Element Is Not Visible   id=btn-submit-form
   Дочекатися завантаження документу
@@ -129,12 +129,14 @@ Login
   byustudio.Пошук тендера по ідентифікатору   ${username}   ${tender_uaid}
   Click Element  xpath=//a[contains(text(),'Редагувати')]
   Wait Until Element Is Visible  xpath=//*[@id="add-link"]
-  Wait Until Keyword Succeeds  10 x  1 s  Select From List By Value  id="modal-document-type"  virtualDataRoom
+  Click Element  xpath=//*[@id="add-link"]
+  Wait Until Keyword Succeeds  10 x  1 s  Select From List By Value  id=modal-document-type  virtualDataRoom
   Click Element  xpath=//*[@data-bb-handler="confirm"]
   Wait Until Element Is Visible  xpath=(//*[@class="document-url"])[last()]
   Input Text  xpath=(//*[@class="document-title"])[last()]  ${title}
   Input Text  xpath=(//*[@class="document-url"])[last()]  ${vdr_url}
   Click Button  id=btn-submit-form
+  Дочекатися завантаження документу
 
 Завантажити документ в тендер з типом
   [Arguments]  ${username}  ${tender_uaid}  ${filepath}  ${documentType}
@@ -142,8 +144,8 @@ Login
   byustudio.Пошук тендера по ідентифікатору  ${username}  ${tender_uaid}
   Click Element  xpath=//a[contains(text(),'Редагувати')]
   Choose File  xpath=(//*[@name="FileUpload[file]"])[last()]  ${filepath}
-  Select From List By Value   xpath=//label[text()='${filepath.split('/')[-1]}']/../../descendant::*[contains(@name,"[documentType]")]   ${documentType}
-  Input Text  xpath=//label[text()='${filepath.split('/')[-1]}']/../../descendant::input[contains(@name,'[title]')]   ${filepath.split('/')[-1]}
+  Select From List By Value   xpath=//input[contains(@value, "${filepath.split('/')[-1].split('.')[0]}")]/../descendant::*[contains(@name,"[documentType]")]   ${documentType}
+  Input Text  xpath=//input[contains(@value, "${filepath.split('/')[-1].split('.')[0]}")]/../descendant::input[contains(@name,'[title]')]   ${filepath.split('/')[-1]}
   Click Button  id=btn-submit-form
   Wait Until Keyword Succeeds  20 x  1 s  Element Should Not Be Visible  id=btn-submit-form
   Дочекатися завантаження документу
@@ -153,24 +155,28 @@ Login
   byustudio.Пошук тендера по ідентифікатору   ${username}   ${tender_uaid}
   Click Element  xpath=//a[contains(text(),'Редагувати')]
   Wait Until Element Is Visible  xpath=//*[@id="add-link"]
-  Wait Until Keyword Succeeds  10 x  1 s  Select From List By Value  id="modal-document-type"  x_dgfPublicAssetCertificate
+  Click Element  xpath=//*[@id="add-link"]
+  Wait Until Keyword Succeeds  10 x  1 s  Select From List By Value  id=modal-document-type  x_dgfPublicAssetCertificate
   Click Element  xpath=//*[@data-bb-handler="confirm"]
   Wait Until Element Is Visible  xpath=(//*[@class="document-url"])[last()]
   Input Text  xpath=(//*[@class="document-title"])[last()]  ${title}
   Input Text  xpath=(//*[@class="document-url"])[last()]  ${certificate_url}
   Click Button  id=btn-submit-form
+  Дочекатися завантаження документу
 
 Додати офлайн документ
   [Arguments]  ${username}  ${tender_uaid}  ${accessDetails}  ${title}=Familiarization with bank asset
   byustudio.Пошук тендера по ідентифікатору   ${username}   ${tender_uaid}
   Click Element  xpath=//a[contains(text(),'Редагувати')]
   Wait Until Element Is Visible  xpath=//*[@id="add-link"]
-  Wait Until Keyword Succeeds  10 x  1 s  Select From List By Value  id="modal-document-type"  x_dgfAssetFamiliarization
+  Click Element  xpath=//*[@id="add-link"]
+  Wait Until Keyword Succeeds  10 x  1 s  Select From List By Value  id=modal-document-type  x_dgfAssetFamiliarization
   Click Element  xpath=//*[@data-bb-handler="confirm"]
   Wait Until Element Is Visible  xpath=(//*[@class="document-url"])[last()]
   Input Text  xpath=(//*[@class="document-title"])[last()]  ${title}
   Input Text  xpath=(//*[@class="document-url"])[last()]  ${accessDetails}
   Click Button  id=btn-submit-form
+  Дочекатися завантаження документу
 
 Пошук тендера по ідентифікатору
   [Arguments]  ${username}  ${tender_uaid}
@@ -259,9 +265,9 @@ Login
   Run Keyword If  ${status_modal}  Wait Until Keyword Succeeds  10 x  1 s  Закрити модалку з новинами
   Wait Until Element Is Enabled  xpath=//a[@data-test-id="sidebar.questions"]
   Click Element  xpath=//a[@data-test-id="sidebar.questions"]
-  Wait Until Element Is Visible  xpath=//h4[contains(text(),'${question_id}')]/../descendant::textarea[contains(@name,'[answer]')]
-  Input text  xpath=//h4[contains(text(),'${question_id}')]/../descendant::textarea[contains(@name,'[answer]')]  ${answer_data.data.answer}
-  Click Element  xpath=//h4[contains(text(),'${question_id}')]/following-sibling::button[@name="answer_question_submit"]
+  Wait Until Element Is Visible  xpath=//*[contains(text(),'${question_id}')]/../descendant::textarea[contains(@name,'[answer]')]
+  Input text  xpath=//*[contains(text(),'${question_id}')]/../descendant::textarea[contains(@name,'[answer]')]  ${answer_data.data.answer}
+  Click Element  xpath=//*[contains(text(),'${question_id}')]/following-sibling::button[@name="answer_question_submit"]
   Wait Until Page Contains Element  xpath=//div[contains(@class,'alert-success')]  30
 
 ###############################################################################################################
@@ -339,7 +345,7 @@ Login
 Отримати кількість документів в тендері
   [Arguments]  ${username}  ${tender_uaid}
   byustudio.Пошук тендера по ідентифікатору  ${username}  ${tender_uaid}
-  ${number_of_documents}=  Get Matching Xpath Count  //div[@class="info-block-content"]/descendant::a[@data-test-id="document.title"]
+  ${number_of_documents}=  Get Matching Xpath Count  //*[@data-test-id="documentType"]
   [return]  ${number_of_documents}
 
 Отримати інформацію із документа по індексу
@@ -375,7 +381,7 @@ Login
   Run Keyword If  '${MODE}' == 'dgfFinancialAssets'
   ...  Select From List By Value  xpath=(//*[contains(@name,'[documentType]')])[last()]  financialLicense
   ...  ELSE  Select From List By Value  xpath=(//*[contains(@name,'[documentType]')])[last()]  commercialProposal
-  Click Element  xpath=//*[@id="bid-checkforunlicensed"]/..
+  Run Keyword And Ignore Error  Click Element  xpath=//*[@id="bid-checkforunlicensed"]/..
   Click Element  xpath=//button[contains(text(), 'Відправити')]
   Wait Until Element Is Visible  name=delete_bids
   ${url}=  Log Location

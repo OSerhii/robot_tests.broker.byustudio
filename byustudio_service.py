@@ -95,10 +95,10 @@ def adapt_view_data(value, field_name):
 
 
 def adapt_view_item_data(value, field_name):
-    if 'unit.name' in field_name:
-        value = ' '.join(value.split(' ')[1:])
-    elif 'quantity' in field_name:
-        value = float(value.split(' ')[0])
+    # if 'unit.name' in field_name:
+    #     value = ' '.join(value.split(' ')[1:])
+    if 'quantity' in field_name:
+        value = float(value)
     return convert_string_from_dict_byustudio(value)
 
 
