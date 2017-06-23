@@ -268,7 +268,7 @@ Login
   Wait Until Element Is Visible  xpath=//*[contains(text(),'${question_id}')]/../descendant::textarea[contains(@name,'[answer]')]
   Input text  xpath=//*[contains(text(),'${question_id}')]/../descendant::textarea[contains(@name,'[answer]')]  ${answer_data.data.answer}
   Click Element  id=slidePanelArrowR
-  Click Element  xpath=//*[contains(text(),'${question_id}')]/following-sibling::button[@name="answer_question_submit"]
+  Click Element  xpath=//*[contains(text(),'${question_id}')]/../descendant::button[@name="answer_question_submit"]
   Wait Until Page Contains Element  xpath=//div[contains(@class,'alert-success')]  30
 
 ###############################################################################################################
@@ -352,7 +352,7 @@ Login
 Отримати інформацію із документа по індексу
   [Arguments]  ${username}  ${tender_uaid}  ${document_index}  ${field}
   byustudio.Пошук тендера по ідентифікатору  ${username}  ${tender_uaid}
-  ${doc_value}=  Get Text  xpath=(//div[@class="document"])[${document_index + 1}]/div[2]/div[2]/span
+  ${doc_value}=  Get Text  xpath=(//div[@data-test-id="documentType"])[${document_index + 1}]
   ${doc_value}=  convert_string_from_dict_byustudio  ${doc_value}
   [return]  ${doc_value}
 
