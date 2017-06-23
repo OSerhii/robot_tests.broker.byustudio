@@ -296,7 +296,7 @@ Login
   Reload Page
   ${value}=  Run Keyword If  'cancellations' in '${field_name}'
   ...  Get Text  xpath=//div[contains(@class,'alert-danger')]/h3[1]
-  ...  ELSE  Get Text  xpath=//h2[@data-test-id="${field_name.split('.')[-1]}"]
+  ...  ELSE  Get Text  xpath=//*[@data-test-id="${field_name.split('.')[-1]}"]
   [return]  ${value.lower()}
 
 Отримати інформацію із предмету
