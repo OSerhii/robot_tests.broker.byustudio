@@ -110,7 +110,7 @@ Login
   Click Element  xpath=//a[contains(text(),'Редагувати')]
   Choose File  xpath=(//*[@name="FileUpload[file]"])[last()]  ${filepath}
   Select From List By Value   xpath=(//*[@class="document-type"])[last()]   illustration
-  Input Text  xpath=//label[text()='${filepath.split('/')[-1].split(".")[0]}']/../../descendant::input[contains(@name,'[title]')]   ${filepath.split('/')[-1]}
+  Input Text  xpath=//input[contains(@value, "${filepath.split('/')[-1].split('.')[0]}")]/../descendant::input[contains(@name,'[title]')]   ${filepath.split('/')[-1]}
   Click Button  id=btn-submit-form
   Wait Until Element Is Not Visible   id=btn-submit-form
   Дочекатися завантаження документу
@@ -267,6 +267,7 @@ Login
   Click Element  xpath=//a[@data-test-id="sidebar.questions"]
   Wait Until Element Is Visible  xpath=//*[contains(text(),'${question_id}')]/../descendant::textarea[contains(@name,'[answer]')]
   Input text  xpath=//*[contains(text(),'${question_id}')]/../descendant::textarea[contains(@name,'[answer]')]  ${answer_data.data.answer}
+  Click Element  id=slidePanelArrowR
   Click Element  xpath=//*[contains(text(),'${question_id}')]/following-sibling::button[@name="answer_question_submit"]
   Wait Until Page Contains Element  xpath=//div[contains(@class,'alert-success')]  30
 
