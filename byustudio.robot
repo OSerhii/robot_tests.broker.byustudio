@@ -363,7 +363,7 @@ Login
   ${internal_id}=  openprocurement_client.Отримати internal id по UAid  Tender_Owner  ${TENDER['TENDER_UAID']}
   ${internal_id}=  Convert To String  ${internal_id}
   ${award_amount}=  get_award_amount  ${internal_id}  ${field_name[7:8]}
-  ${value}=  Get Text  xpath=//b[contains(text(), "${award_amount}")]/../following-sibling::td
+  ${value}=  Get Text  xpath=//*[contains(text(), "${award_amount}")]/../descendant::div[contains(@class,"qualification-winner-tbl_r_status")]
   [return]  ${value.lower()}
 
 ###############################################################################################################
