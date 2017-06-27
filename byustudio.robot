@@ -414,7 +414,7 @@ Login
   Run Keyword If  '${MODE}' == 'dgfFinancialAssets'
   ...  Select From List By Value  xpath=(//*[contains(@name,'[documentType]')])[last()]  financialLicense
   ...  ELSE  Select From List By Value  xpath=(//*[contains(@name,'[documentType]')])[last()]  commercialProposal
-  Click Element  xpath=//*[@id="bid-checkforunlicensed"]/..
+  Run Keyword And Ignore Error  Click Element  xpath=//*[@id="bid-checkforunlicensed"]/..
   Click Element  xpath=//button[contains(text(), 'Відправити')]
   Wait Until Element Is Visible  name=delete_bids
   ${url}=  Log Location
@@ -432,7 +432,7 @@ Login
   Run Keyword If  '${MODE}' == 'dgfFinancialAssets'
   ...  Select From List By Value  xpath=(//*[contains(@name,'[documentType]')])[last()]  financialLicense
   ...  ELSE  Select From List By Value  xpath=(//*[contains(@name,'[documentType]')])[last()]  commercialProposal
-  Click Element  xpath=//*[@id="bid-checkforunlicensed"]/..
+  Run Keyword And Ignore Error  Click Element  xpath=//*[@id="bid-checkforunlicensed"]/..
   Click Element  xpath=//button[contains(text(), 'Відправити')]
   Wait Until Element Is Visible  name=delete_bids
   ${url}=  Log Location
