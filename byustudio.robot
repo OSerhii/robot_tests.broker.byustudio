@@ -460,7 +460,13 @@ Login
 Отримати посилання на аукціон для учасника
   [Arguments]  ${username}  ${tender_uaid}
   byustudio.Пошук тендера по ідентифікатору   ${username}  ${tender_uaid}
-  ${auction_url}  Get Element Attribute  xpath=(//a[contains(@href, "openprocurement.org/auctions")])[1]@href
+  Click Element  xpath=//a[@class="auction_seller_url"]
+  Log  Get Window Identifiers
+  Log  Get Window Names
+  Log  Get Window Titles
+  Get Window Identifiers
+  Get Window Names
+  Get Window Titles
   [return]  ${auction_url}
 
 
