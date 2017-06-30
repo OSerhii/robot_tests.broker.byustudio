@@ -112,7 +112,7 @@ Login
   Select From List By Value   xpath=(//*[@class="document-type"])[last()]   illustration
   Input Text  xpath=//input[contains(@value, "${filepath.split('/')[-1].split('.')[0]}")]/../descendant::input[contains(@name,'[title]')]   ${filepath.split('/')[-1]}
   Click Button  id=btn-submit-form
-  Wait Until Element Is Not Visible   id=btn-submit-form
+  Wait Until Keyword Succeeds  5 x  1 s  Element Should Not Be Visible   id=btn-submit-form
   Дочекатися завантаження документу
 
 Завантажити ілюстрацію
@@ -268,8 +268,9 @@ Login
   Wait Until Element Is Visible  xpath=//*[contains(text(),'${question_id}')]/../descendant::textarea[contains(@name,'[answer]')]
   Input text  xpath=//*[contains(text(),'${question_id}')]/../descendant::textarea[contains(@name,'[answer]')]  ${answer_data.data.answer}
   Click Element  id=slidePanelArrowR
-  Click Element  xpath=//*[contains(text(),'${question_id}')]/../descendant::button[@name="answer_question_submit"]
-  Wait Until Page Contains Element  xpath=//div[contains(@class,'alert-success')]  30
+  Wait Until Keyword Succeeds  10 x  1 s  Run Keywords
+  ...  Click Element  xpath=//*[contains(text(),'${question_id}')]/../descendant::button[@name="answer_question_submit"]
+  ...  AND  Wait Until Page Contains Element  xpath=//div[contains(@class,'alert-success')]  30
 
 ###############################################################################################################
 ###################################    ВІДОБРАЖЕННЯ ІНФОРМАЦІЇ    #############################################
