@@ -57,7 +57,7 @@ def convert_string_from_dict_byustudio(string):
         u'на черзі': u'pending.waiting',
         u'очікується підписання договору': u'pending.payment',
         u'оплачено, очікується підписання договору': u'active',
-        u'рiшення скасованно': u'cancelled',
+        u'рiшення скасовано': u'cancelled',
         u'дискваліфіковано': u'unsuccessful',
     }.get(string, string)
 
