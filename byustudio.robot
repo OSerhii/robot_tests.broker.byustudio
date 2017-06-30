@@ -467,6 +467,9 @@ Login
   Get Window Identifiers
   Get Window Names
   Get Window Titles
+  Select Window  new
+  ${auction_url}=  Get Location
+  Select Window
   [return]  ${auction_url}
 
 
